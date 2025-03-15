@@ -28,8 +28,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/todos", async (req, res) => {
     if (!req.isAuthenticated()) return res.sendStatus(401);
     const search = req.query.search?.toString();
-    const todos = await storage.getTodos(req.user.id, search);
-    res.json(todos);
+    try {
+      const todos = await storage.getTodos(req.user.id, search);
+      res.json(todos);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch todos" });
+    }
   });
 
   app.post("/api/todos", async (req, res) => {

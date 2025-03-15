@@ -65,21 +65,24 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getTodos(userId: number, search?: string): Promise<Todo[]> {
-    let query = db
+    const baseQuery = db
       .select()
       .from(todos)
       .where(eq(todos.userId, userId));
 
     if (search) {
-      query = query.where(
-        or(
-          like(todos.title, `%${search}%`),
-          like(todos.description, `%${search}%`)
-        )
+      const searchCondition = or(
+        like(todos.title, `%${search}%`),
+        like(todos.description, `%${search}%`)
       );
+      return db
+        .select()
+        .from(todos)
+        .where(and(eq(todos.userId, userId), searchCondition))
+        .orderBy(desc(todos.createdAt));
     }
 
-    return query.orderBy(desc(todos.createdAt));
+    return baseQuery.orderBy(desc(todos.createdAt));
   }
 
   async createTodo(userId: number, insertTodo: InsertTodo): Promise<Todo> {
