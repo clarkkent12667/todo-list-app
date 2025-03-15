@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,6 +37,30 @@ export default function Home() {
                   <SheetTrigger asChild>
                     <Button variant="outline" className="gap-2">
                       <Plus className="h-4 w-4" />
+                      Add Todo
+                    </Button>
+                  </SheetTrigger>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Create a new todo</p>
+                </TooltipContent>
+              </Tooltip>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Create New Todo</SheetTitle>
+                </SheetHeader>
+                <div className="mt-6">
+                  <TodoForm />
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            <Sheet>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" className="gap-2">
+                      <Plus className="h-4 w-4" />
                       Categories
                     </Button>
                   </SheetTrigger>
@@ -54,6 +78,7 @@ export default function Home() {
                 </div>
               </SheetContent>
             </Sheet>
+
             <ThemeToggle />
             <Button 
               variant="ghost" 
@@ -85,17 +110,6 @@ export default function Home() {
             </CardContent>
           </Card>
         </div>
-
-        <Card className="shadow-sm border border-border">
-          <CardHeader className="border-b border-border">
-            <CardTitle className="text-2xl font-bold text-foreground">
-              Add New Todo
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <TodoForm />
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
