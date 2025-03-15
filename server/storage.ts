@@ -68,8 +68,7 @@ export class DatabaseStorage implements IStorage {
     let query = db
       .select()
       .from(todos)
-      .where(eq(todos.userId, userId))
-      .orderBy(desc(todos.createdAt));
+      .where(eq(todos.userId, userId));
 
     if (search) {
       query = query.where(
@@ -80,7 +79,7 @@ export class DatabaseStorage implements IStorage {
       );
     }
 
-    return query;
+    return query.orderBy(desc(todos.createdAt));
   }
 
   async createTodo(userId: number, insertTodo: InsertTodo): Promise<Todo> {
