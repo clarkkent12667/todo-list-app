@@ -35,6 +35,7 @@ export default function TodoList({ search }: TodoListProps) {
     );
   }
 
+  // Handle no todos or no search results
   if (!todos?.length) {
     return (
       <div className="text-muted-foreground text-center py-12">
@@ -52,7 +53,7 @@ export default function TodoList({ search }: TodoListProps) {
           <div className="flex flex-col items-center gap-2">
             <p className="text-lg font-medium">No todos yet</p>
             <p className="text-sm text-muted-foreground">
-              Create your first todo using the form below
+              Create your first todo using the form above
             </p>
           </div>
         )}
@@ -60,20 +61,44 @@ export default function TodoList({ search }: TodoListProps) {
     );
   }
 
+  // Filter todos based on search term
+  const filteredTodos = search 
+    ? todos.filter(todo => 
+        todo.title.toLowerCase().includes(search.toLowerCase()) ||
+        todo.description.toLowerCase().includes(search.toLowerCase())
+      )
+    : todos;
+
+  if (search && !filteredTodos.length) {
+    return (
+      <div className="text-muted-foreground text-center py-12">
+        <div className="flex flex-col items-center gap-3">
+          <Search className="h-12 w-12 text-muted-foreground/50" />
+          <div>
+            <p className="text-lg font-medium">No matches found</p>
+            <p className="text-sm text-muted-foreground">
+              No todos found matching "{search}"
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
-      {search && (
+      {search && filteredTodos.length > 0 && (
         <div className="mb-4 pb-4 border-b">
           <div className="flex items-center gap-2 text-muted-foreground">
             <Search className="h-4 w-4" />
             <p>
-              Found {todos.length} result{todos.length === 1 ? "" : "s"} for "{search}"
+              Found {filteredTodos.length} result{filteredTodos.length === 1 ? "" : "s"} for "{search}"
             </p>
           </div>
         </div>
       )}
       <div className="space-y-4">
-        {todos.map((todo) => (
+        {filteredTodos.map((todo) => (
           <TodoItem 
             key={todo.id} 
             todo={todo}
