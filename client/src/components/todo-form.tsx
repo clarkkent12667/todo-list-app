@@ -12,18 +12,19 @@ import { useToast } from "@/hooks/use-toast";
 export default function TodoForm() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  
+
   const form = useForm({
     resolver: zodResolver(insertTodoSchema),
     defaultValues: {
       title: "",
       description: "",
-      completed: false
+      completed: false,
+      categoryId: null
     }
   });
 
   const mutation = useMutation({
-    mutationFn: async (data: typeof form.getValues) => {
+    mutationFn: async (data: ReturnType<typeof form.getValues>) => {
       const res = await apiRequest("POST", "/api/todos", data);
       return res.json();
     },
