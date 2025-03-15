@@ -28,16 +28,16 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-primary">My Todo List</h1>
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-primary">My Todo List</h1>
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
             <Sheet>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <SheetTrigger asChild>
-                    <Button variant="outline" className="gap-2">
+                    <Button variant="outline" className="gap-2 flex-1 sm:flex-none">
                       <Plus className="h-4 w-4" />
-                      Add Todo
+                      <span className="sm:inline">Add Todo</span>
                     </Button>
                   </SheetTrigger>
                 </TooltipTrigger>
@@ -45,7 +45,7 @@ export default function Home() {
                   <p>Create a new todo</p>
                 </TooltipContent>
               </Tooltip>
-              <SheetContent>
+              <SheetContent side="right" className="w-[90vw] sm:w-[540px]">
                 <SheetHeader>
                   <SheetTitle>Create New Todo</SheetTitle>
                 </SheetHeader>
@@ -59,9 +59,9 @@ export default function Home() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <SheetTrigger asChild>
-                    <Button variant="outline" className="gap-2">
+                    <Button variant="outline" className="gap-2 flex-1 sm:flex-none">
                       <Plus className="h-4 w-4" />
-                      Categories
+                      <span className="sm:inline">Categories</span>
                     </Button>
                   </SheetTrigger>
                 </TooltipTrigger>
@@ -69,7 +69,7 @@ export default function Home() {
                   <p>Manage todo categories</p>
                 </TooltipContent>
               </Tooltip>
-              <SheetContent>
+              <SheetContent side="right" className="w-[90vw] sm:w-[540px]">
                 <SheetHeader>
                   <SheetTitle>Manage Categories</SheetTitle>
                 </SheetHeader>
@@ -79,16 +79,18 @@ export default function Home() {
               </SheetContent>
             </Sheet>
 
-            <ThemeToggle />
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={() => logoutMutation.mutate()}
-              disabled={logoutMutation.isPending}
-            >
-              <LogOut className="h-5 w-5" />
-              <span className="sr-only">Sign out</span>
-            </Button>
+            <div className="flex items-center gap-2 ml-auto sm:ml-0">
+              <ThemeToggle />
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => logoutMutation.mutate()}
+                disabled={logoutMutation.isPending}
+              >
+                <LogOut className="h-5 w-5" />
+                <span className="sr-only">Sign out</span>
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -100,12 +102,12 @@ export default function Home() {
               placeholder="Search todos..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 max-w-md"
+              className="pl-9 w-full sm:max-w-md"
             />
           </div>
 
           <Card className="shadow-sm border border-border">
-            <CardContent className="pt-6">
+            <CardContent className="p-4 sm:p-6">
               <TodoList search={search} />
             </CardContent>
           </Card>

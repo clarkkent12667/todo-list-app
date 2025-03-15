@@ -59,17 +59,18 @@ export default function TodoItem({ todo, category }: TodoItemProps) {
   return (
     <Card className="hover:shadow-md transition-shadow">
       <CardContent className="p-4 flex items-start justify-between gap-4">
-        <div className="flex items-start gap-3 flex-1">
+        <div className="flex items-start gap-3 flex-1 min-w-0">
           <Checkbox
             checked={todo.completed}
             onCheckedChange={() => toggleMutation.mutate()}
             disabled={toggleMutation.isPending}
+            className="mt-1"
           />
-          <div className="space-y-1">
-            <h3 className={`font-medium ${todo.completed ? 'line-through text-muted-foreground' : ''}`}>
+          <div className="space-y-1 min-w-0">
+            <h3 className={`font-medium break-words ${todo.completed ? 'line-through text-muted-foreground' : ''}`}>
               {todo.title}
             </h3>
-            <p className={`text-sm ${todo.completed ? 'text-muted-foreground' : 'text-foreground'}`}>
+            <p className={`text-sm break-words ${todo.completed ? 'text-muted-foreground' : 'text-foreground'}`}>
               {todo.description}
             </p>
             {category && (
@@ -84,6 +85,7 @@ export default function TodoItem({ todo, category }: TodoItemProps) {
           size="icon"
           onClick={() => deleteMutation.mutate()}
           disabled={deleteMutation.isPending}
+          className="shrink-0"
         >
           <Trash2 className="h-4 w-4 text-destructive" />
         </Button>

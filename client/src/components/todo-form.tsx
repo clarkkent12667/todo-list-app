@@ -56,7 +56,7 @@ export default function TodoForm() {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="Enter todo title..." {...field} />
+                <Input placeholder="Enter todo title..." {...field} className="w-full" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -70,7 +70,11 @@ export default function TodoForm() {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Textarea placeholder="Enter todo description..." {...field} />
+                <Textarea 
+                  placeholder="Enter todo description..." 
+                  {...field} 
+                  className="min-h-[100px] w-full"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -94,7 +98,7 @@ export default function TodoForm() {
           )}
         />
 
-        <Button type="submit" disabled={mutation.isPending}>
+        <Button type="submit" disabled={mutation.isPending} className="w-full">
           {mutation.isPending ? "Creating..." : "Create Todo"}
         </Button>
       </form>
