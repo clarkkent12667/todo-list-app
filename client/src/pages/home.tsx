@@ -15,6 +15,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function Home() {
   const { logoutMutation } = useAuth();
@@ -27,12 +32,19 @@ export default function Home() {
           <h1 className="text-3xl font-bold text-primary">My Todo List</h1>
           <div className="flex items-center gap-2">
             <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Plus className="h-4 w-4" />
-                  <span className="sr-only">Manage Categories</span>
-                </Button>
-              </SheetTrigger>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" className="gap-2">
+                      <Plus className="h-4 w-4" />
+                      Categories
+                    </Button>
+                  </SheetTrigger>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Manage todo categories</p>
+                </TooltipContent>
+              </Tooltip>
               <SheetContent>
                 <SheetHeader>
                   <SheetTitle>Manage Categories</SheetTitle>
@@ -56,6 +68,19 @@ export default function Home() {
         </div>
 
         <Card className="shadow-sm border border-border">
+          <CardContent className="pt-6">
+            <div className="space-y-4">
+              <Input
+                type="search"
+                placeholder="Search todos..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <TodoList search={search} />
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="shadow-sm border border-border">
           <CardHeader className="border-b border-border">
             <CardTitle className="text-2xl font-bold text-foreground">
               Add New Todo
@@ -65,20 +90,6 @@ export default function Home() {
             <TodoForm />
           </CardContent>
         </Card>
-
-        <div className="flex flex-col space-y-4">
-          <Input
-            type="search"
-            placeholder="Search todos..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <Card className="shadow-sm border border-border">
-            <CardContent className="pt-6">
-              <TodoList search={search} />
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   );
