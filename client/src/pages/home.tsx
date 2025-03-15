@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LogOut, Plus } from "lucide-react";
+import { LogOut, Plus, Search } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import TodoForm from "@/components/todo-form";
 import TodoList from "@/components/todo-list";
@@ -67,14 +67,15 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="flex items-center gap-4">
+        <div className="space-y-6">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Search todos..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="max-w-md"
+              className="pl-9 max-w-md"
             />
           </div>
 

@@ -37,28 +37,50 @@ export default function TodoList({ search }: TodoListProps) {
 
   if (!todos?.length) {
     return (
-      <div className="text-muted-foreground text-center py-8">
+      <div className="text-muted-foreground text-center py-12">
         {search ? (
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-3">
             <Search className="h-12 w-12 text-muted-foreground/50" />
-            <p>No todos found matching "{search}"</p>
+            <div>
+              <p className="text-lg font-medium">No matches found</p>
+              <p className="text-sm text-muted-foreground">
+                No todos found matching "{search}"
+              </p>
+            </div>
           </div>
         ) : (
-          "No todos yet. Create one below!"
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-lg font-medium">No todos yet</p>
+            <p className="text-sm text-muted-foreground">
+              Create your first todo using the form below
+            </p>
+          </div>
         )}
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
-      {todos.map((todo) => (
-        <TodoItem 
-          key={todo.id} 
-          todo={todo}
-          category={categories?.find(c => c.id === todo.categoryId)}
-        />
-      ))}
+    <div>
+      {search && (
+        <div className="mb-4 pb-4 border-b">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Search className="h-4 w-4" />
+            <p>
+              Found {todos.length} result{todos.length === 1 ? "" : "s"} for "{search}"
+            </p>
+          </div>
+        </div>
+      )}
+      <div className="space-y-4">
+        {todos.map((todo) => (
+          <TodoItem 
+            key={todo.id} 
+            todo={todo}
+            category={categories?.find(c => c.id === todo.categoryId)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
