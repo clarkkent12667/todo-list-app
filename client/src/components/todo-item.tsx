@@ -1,17 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Todo } from "@shared/schema";
+import type { Todo, Category } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Trash2 } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 interface TodoItemProps {
   todo: Todo;
+  category?: Category;
 }
 
-export default function TodoItem({ todo }: TodoItemProps) {
+export default function TodoItem({ todo, category }: TodoItemProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -70,6 +72,11 @@ export default function TodoItem({ todo }: TodoItemProps) {
             <p className={`text-sm ${todo.completed ? 'text-muted-foreground' : 'text-foreground'}`}>
               {todo.description}
             </p>
+            {category && (
+              <Badge variant="secondary" className="mt-2">
+                {category.name}
+              </Badge>
+            )}
           </div>
         </div>
         <Button

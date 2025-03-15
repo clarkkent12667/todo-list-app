@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import CategorySelect from "./category-select";
 
 export default function TodoForm() {
   const { toast } = useToast();
@@ -70,6 +71,23 @@ export default function TodoForm() {
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea placeholder="Enter todo description..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="categoryId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Category</FormLabel>
+              <FormControl>
+                <CategorySelect 
+                  value={field.value} 
+                  onValueChange={field.onChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -1,11 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Todo } from "@shared/schema";
+import type { Todo, Category } from "@shared/schema";
 import TodoItem from "./todo-item";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function TodoList() {
+interface TodoListProps {
+  search?: string;
+}
+
+export default function TodoList({ search }: TodoListProps) {
   const { data: todos, isLoading, error } = useQuery<Todo[]>({
-    queryKey: ["/api/todos"],
+    queryKey: ["/api/todos", search && { search }].filter(Boolean),
+  });
+
+  const { data: categories } = useQuery<Category[]>({
+    queryKey: ["/api/categories"],
   });
 
   if (isLoading) {
@@ -37,7 +45,11 @@ export default function TodoList() {
   return (
     <div className="space-y-4">
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
+        <TodoItem 
+          key={todo.id} 
+          todo={todo}
+          category={categories?.find(c => c.id === todo.categoryId)}
+        />
       ))}
     </div>
   );
