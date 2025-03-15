@@ -67,19 +67,24 @@ export default function Home() {
           </div>
         </div>
 
-        <Card className="shadow-sm border border-border">
-          <CardContent className="pt-6">
-            <div className="space-y-4">
-              <Input
-                type="search"
-                placeholder="Search todos..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
+        <div className="space-y-4">
+          <div className="flex items-center gap-4">
+            <Input
+              type="search"
+              placeholder="Search todos..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="max-w-md"
+            />
+          </div>
+
+          <Card className="shadow-sm border border-border">
+            <CardContent className="pt-6">
               <TodoList search={search} />
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
+
         <Card className="shadow-sm border border-border">
           <CardHeader className="border-b border-border">
             <CardTitle className="text-2xl font-bold text-foreground">

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { Todo, Category } from "@shared/schema";
 import TodoItem from "./todo-item";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Search } from "lucide-react";
 
 interface TodoListProps {
   search?: string;
@@ -36,8 +37,15 @@ export default function TodoList({ search }: TodoListProps) {
 
   if (!todos?.length) {
     return (
-      <div className="text-muted-foreground text-center py-4">
-        No todos yet. Create one above!
+      <div className="text-muted-foreground text-center py-8">
+        {search ? (
+          <div className="flex flex-col items-center gap-2">
+            <Search className="h-12 w-12 text-muted-foreground/50" />
+            <p>No todos found matching "{search}"</p>
+          </div>
+        ) : (
+          "No todos yet. Create one below!"
+        )}
       </div>
     );
   }
