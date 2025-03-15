@@ -24,14 +24,14 @@ export default function CategorySelect({ value, onValueChange }: CategorySelectP
 
   return (
     <Select
-      value={value?.toString() ?? ""}
-      onValueChange={(val) => onValueChange(val ? parseInt(val) : null)}
+      value={value?.toString() ?? "null"}
+      onValueChange={(val) => onValueChange(val === "null" ? null : parseInt(val))}
     >
       <SelectTrigger>
         <SelectValue placeholder="Select a category" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="">No category</SelectItem>
+        <SelectItem value="null">No category</SelectItem>
         {categories?.map((category) => (
           <SelectItem key={category.id} value={category.id.toString()}>
             {category.name}
