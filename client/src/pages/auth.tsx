@@ -27,12 +27,6 @@ export default function Auth() {
   const { loginMutation, registerMutation, user } = useAuth();
   const [, setLocation] = useLocation();
 
-  // Redirect if already logged in
-  if (user) {
-    setLocation("/");
-    return null;
-  }
-
   const form = useForm({
     resolver: zodResolver(insertUserSchema),
     defaultValues: {
@@ -48,6 +42,13 @@ export default function Auth() {
       registerMutation.mutate(data);
     }
   });
+
+  // Render null if already logged in, but only after hooks are called
+  if (user) {
+    // Use setTimeout to avoid immediate state updates
+    setTimeout(() => setLocation("/"), 0);
+    return null;
+  }
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
