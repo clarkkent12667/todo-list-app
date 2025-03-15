@@ -8,6 +8,7 @@ import { ProtectedRoute } from "@/lib/protected-route";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Auth from "@/pages/auth";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 function Router() {
   return (
@@ -24,8 +25,10 @@ function App() {
     <ThemeProvider defaultTheme="system" storageKey="todo-theme">
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <Router />
-          <Toaster />
+          <TooltipProvider>
+            <Router />
+            <Toaster />
+          </TooltipProvider>
         </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
