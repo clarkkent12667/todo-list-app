@@ -12,18 +12,18 @@ export default function Home() {
           <ThemeToggle />
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold text-primary">
+        <Card className="shadow-sm border border-border">
+          <CardHeader className="border-b border-border">
+            <CardTitle className="text-2xl font-bold text-foreground">
               Add New Todo
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             <TodoForm />
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="shadow-sm border border-border">
           <CardContent className="pt-6">
             <TodoList />
           </CardContent>
